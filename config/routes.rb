@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   scope "/", defaults: { format: :json} do
     resources :users, except: [:index, :destroy]
-    resources :post
+    resources :posts
     resources :comment, only: [:create]
 
     post '/auth/login', to: 'authentication#login'
