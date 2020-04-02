@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
     before_action :authorize_request, except: :create
     before_action :find_user, only: :show
+
+    # GET /users
+    def index
+        @users = User.all
+        render json: @users, status: :ok
+    end
     
     # GET /users/:id
     def show
@@ -35,7 +41,7 @@ class UsersController < ApplicationController
             end
         else
             unless @current_user.update(update_params)
-                render json: { errors: @user,errors.full_messages },
+                render json: { errors: @user.errors.full_messages },
                     status: :unprocessable_entity
             else
                 render json:
